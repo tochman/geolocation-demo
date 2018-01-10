@@ -8,3 +8,9 @@ Given(/^I am in Stockholm$/) do
       };
   success(position);}")
 end
+
+Given(/^these restaurants exist:$/) do |table|
+  table.hashes.each do |restaurant_hash|
+    create(:restaurant, restaurant_hash)
+  end
+end
