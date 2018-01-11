@@ -15,7 +15,7 @@ Chromedriver.set_version '2.33'
 Capybara.register_driver :chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
       chromeOptions: {
-          args: %w[ no-sandbox disable-popup-blocking disable-gpu window-size=1280,980]
+          args: %w[ no-sandbox disable-popup-blocking window-size=1280,980]
       }
   )
 
@@ -25,5 +25,3 @@ end
 Capybara.javascript_driver = :chrome
 
 World FactoryBot::Syntax::Methods
-
-

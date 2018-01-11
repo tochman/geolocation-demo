@@ -1,3 +1,4 @@
+require './lib/fake_ip'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -19,7 +20,7 @@ Rails.application.configure do
   }
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = false
 
   # Raise exceptions instead of rendering exception templates.
@@ -39,4 +40,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  #
+  # Spoof IP
+  config.middleware.use(FakeIp, '185.157.160.45')
 end

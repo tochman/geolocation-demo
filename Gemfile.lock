@@ -94,12 +94,14 @@ GEM
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
     ffi (1.9.18)
+    geocoder (1.4.5)
     gherkin (5.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     io-like (0.3.0)
+    jquery (0.0.1)
     launchy (2.4.3)
       addressable (~> 2.3)
     listen (3.1.5)
@@ -238,6 +240,8 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   factory_bot_rails
+  geocoder
+  jquery
   launchy
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.18)

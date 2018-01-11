@@ -1,4 +1,5 @@
 And(/^I visit the site$/) do
+  FakeIp.new(Rails.application, '1.1.1.1')
   visit root_path
 end
 
