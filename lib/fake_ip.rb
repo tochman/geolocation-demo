@@ -1,18 +1,3 @@
-# class FakeIp
-#   def initialize(app, ip)
-#     @app = app
-#     @ip = ip
-#   end
-#
-#   def call(env)
-#     env['HTTP_X_FORWARDED_FOR'] = nil
-#     env['REMOTE_ADDR'] = env['action_dispatch.remote_ip'] = @ip
-#     @status, @headers, @response = @app.call(env)
-#     [@status, @headers, @response]
-#   end
-# end
-
-
 class FakeIp
   def initialize(*args)
     @args = args
@@ -24,7 +9,7 @@ class FakeIp
 
   class Logic
     def initialize(app, ip)
-      @app        = app
+      @app = app
       @ip = ip
     end
 
@@ -32,7 +17,6 @@ class FakeIp
       env['HTTP_X_FORWARDED_FOR'] = nil
       env['REMOTE_ADDR'] = env['action_dispatch.remote_ip'] = @ip
       @status, @headers, @response = @app.call(env)
-     # @app.call(env)
     end
   end
 end

@@ -14,6 +14,7 @@ class RestaurantsController < ApplicationController
       @geocoded = true
     else
       @coordinates = request.location.data.symbolize_keys
+      #@geocoded = true
     end
   end
 end
