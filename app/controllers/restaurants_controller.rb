@@ -13,8 +13,9 @@ class RestaurantsController < ApplicationController
                       longitude: params[:lng]}
       @geocoded = true
     else
-      @coordinates = request.location.data.symbolize_keys
-      #@geocoded = true
+      @coordinates = {latitude: nil,
+                      longitude: nil}
+      @geocoded = false
     end
   end
 end

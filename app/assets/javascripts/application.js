@@ -14,46 +14,51 @@
 //= require turbolinks
 //= require_tree .
 
-// document.addEventListener('turbolinks:load', () => {
-//
-//     getPosition({enableHighAccuracy: true})
-//         .then(position => {
-//             redirectWithLocationParams(position)
-//         }).catch(error => {
-//         // What do we do here?
-//     })
-//
-//
-// });
-//
-// getPosition = (options) => {
-//     return new Promise((resolve, reject) => {
-//         navigator.geolocation.getCurrentPosition(
-//             // On Success
-//             position => {
-//                 resolve(position);
-//             },
-//             error => {
-//                 reject(error);
-//             },
-//             options
-//         );
-//
-//     });
-// };
-//
-// redirectWithLocationParams = (position) => {
-//     let lat = position.coords.latitude,
-//         lng = position.coords.longitude,
-//         url = new URL(window.location.href),
-//         params = {lat: lat, lng: lng};
-//
-//     Object.keys(params).forEach(key => {
-//         url.searchParams.append(key, params[key])
-//     });
-//
-//     if (document.body.dataset.geocoded !== 'true') {
-//         document.body.dataset.geocoded = true;
-//         window.location.replace(url);
-//     }
-// };
+document.addEventListener('turbolinks:load', () => {
+
+    getPosition({enableHighAccuracy: true})
+        .then(position => {
+            redirectWithLocationParams(position)
+        }).catch(error => {
+        // What do we do here?
+    })
+
+
+});
+
+getPosition = (options) => {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+            // On Success
+            position => {
+                resolve(position);
+            },
+            error => {
+                reject(error);
+            },
+            options
+        );
+
+    });
+};
+
+redirectWithLocationParams = (position) => {
+    let lat = position.coords.latitude,
+        lng = position.coords.longitude,
+        url = new URL(window.location.href),
+        params = {lat: lat, lng: lng};
+
+    let redirectWith = appendParamsToUrl(url, params);
+
+    if (document.body.dataset.geocoded !== 'true') {
+        document.body.dataset.geocoded = true;
+        window.location.replace(redirectWith);
+    }
+};
+
+appendParamsToUrl = (url, params) => {
+    Object.keys(params).forEach(key => {
+        url.searchParams.append(key, params[key])
+    });
+    return url;
+}
