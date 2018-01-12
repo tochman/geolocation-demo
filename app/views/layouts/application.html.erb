@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>GeolocationDemo</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>GeolocationDemo</title>
+  <% if Rails.env.development? %>
+    <meta id="fake_position" content="<%= ({lat: 57.77496, lng: 12.02326}).to_json %>">
+  <% end %>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body data-geocoded="<%= @geocoded %>">
-    <%= yield %>
-  <%= @coordinates %>
-  </body>
+<body data-geocoded="<%= @geocoded %>" data-env="<%= Rails.env %>">
+<%= yield %>
+</body>
 </html>

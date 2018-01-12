@@ -8,9 +8,8 @@ class RestaurantsController < ApplicationController
 
   private
   def coordinates
-    if params[:lat].present? && params[:lng].present?
-      @coordinates = {latitude: params[:lat],
-                      longitude: params[:lng]}
+    if cookies['geocoderLocation'].present?
+      @coordinates = JSON.parse(cookies['geocoderLocation']).to_hash.symbolize_keys
       @geocoded = true
     else
       @coordinates = {latitude: nil,
