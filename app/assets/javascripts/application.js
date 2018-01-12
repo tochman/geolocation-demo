@@ -15,21 +15,18 @@
 //= require_tree .
 
 document.addEventListener('turbolinks:load', () => {
-    let headers = new Headers();
-
     getPosition({enableHighAccuracy: true})
         .then(position => {
             setCookie('geocoderLocation', JSON.stringify(position.coords))
                 .then(() => {
                     redirectWithLocation()
                 })
-        }).catch(error => {
-        console.log(error);
-    })
+        })
+        .catch(error => console.log(error))
 });
 
 getPosition = (options) => {
-    if (document.body.dataset.env === 'development') {
+    if (document.body.dataset.env === 'test') {
         return new Promise((resolve) => {
             let fakePosition = JSON.parse(document.getElementById('fake_position').content);
             resolve({coords: {latitude: fakePosition.lat, longitude: fakePosition.lng}})
@@ -37,13 +34,8 @@ getPosition = (options) => {
     } else {
         return new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(
-                // On Success
-                position => {
-                    resolve(position);
-                },
-                error => {
-                    reject(error);
-                },
+                position => resolve(position),
+                error => reject(error),
                 options
             );
 

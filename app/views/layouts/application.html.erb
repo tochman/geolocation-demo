@@ -2,8 +2,8 @@
 <html>
 <head>
   <title>GeolocationDemo</title>
-  <% if Rails.env.development? %>
-    <meta id="fake_position" content="<%= ({lat: 57.77496, lng: 12.02326}).to_json %>">
+  <% if Rails.env.test? %>
+    <meta id="fake_position" content="<%= ({lat: 57.77, lng: 11.90}).to_json %>">
   <% end %>
   <%= csrf_meta_tags %>
 
