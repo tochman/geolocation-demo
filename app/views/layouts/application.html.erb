@@ -3,15 +3,15 @@
 <head>
   <title>GeolocationDemo</title>
   <% if Rails.env.test? %>
-    <meta id="fake_position" content="<%= ({lat: 57.77, lng: 11.90}).to_json %>">
+    <%= tag.meta id: :fake_position, content: fake_location %>
   <% end %>
   <%= csrf_meta_tags %>
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', media: 'all', data: {turbolinks: {track: 'reload'}} %>
+  <%= javascript_include_tag 'application', data: {turbolinks: {track: 'reload'}} %>
 </head>
 
-<body data-geocoded="<%= @geocoded %>" data-env="<%= Rails.env %>">
-<%= yield %>
-</body>
+<%= tag.body data: {geocoded: (@geocoded ? @geocoded : false), env: Rails.env} do %>
+  <%= yield %>
+<% end %>
 </html>

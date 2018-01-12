@@ -10,8 +10,9 @@ Feature: User can visit the site and view a list of restaurants
       | Scott's Pizza Place | Stockholm |
       | Oliver's Burgers    | Göteborg  |
 
+    And I am in Stockholm
+
   Scenario: User can see a list of restaurants
     Given I visit the site
-    And I am in Stockholm
     Then I should see "Scott's Pizza Place"
     But I should not see "Oliver's Burgers"
