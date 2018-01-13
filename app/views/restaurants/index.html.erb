@@ -17,6 +17,9 @@
             });
 
             addCenterMarker(map);
+
+            let restaurants = <%= raw @restaurants.to_json %>;
+            addMarkers(restaurants);
         })
 
     }
@@ -26,12 +29,35 @@
         map.addMarker({
             lat: map.getCenter().lat(),
             lng: map.getCenter().lng(),
-            title: 'Center',
-            click: function (e) {
-                alert('You clicked in this marker');
+            title: 'Your location',
+            infoWindow: {
+                content: '<h4>You are here</h4>'
+            },
+            icon: {
+                scaledSize: new google.maps.Size(50, 50),
+                url: 'https://furtaev.ru/preview/current_location_map_pointer_small.png'
             }
+
         });
 
     }
+
+    addMarkers = (collection) => {
+        collection.forEach(item => {
+            map.addMarker({
+                lat: item.latitude,
+                lng: item.longitude,
+                title: item.name,
+                infoWindow: {
+                    content: `<h4>${item.name}</h4>`
+                },
+                icon: {
+                    scaledSize: new google.maps.Size(50, 50),
+                    url: 'https://furtaev.ru/preview/restaurant_map_pointer_small.png'
+                }
+            });
+        })
+    }
+
 
 </script>
