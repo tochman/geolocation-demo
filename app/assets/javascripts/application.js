@@ -15,15 +15,32 @@
 //= require_tree .
 
 document.addEventListener('turbolinks:load', () => {
+    const element = document.querySelector('body');
+    let observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+            if (mutation.type === "attributes") {
+                console.log("attributes changed");
+                initiateMap()
+            }
+        });
+    });
+
+    observer.observe(element, {
+        attributes: true //configure it to listen to attribute changes
+    });
+
     getPosition({enableHighAccuracy: true})
         .then(position => {
             setCookie('geocoderLocation', JSON.stringify(position.coords))
                 .then(() => {
-                    redirectWithLocation()
+                    redirectWithLocation();
+                    document.body.dataset.geocoded = true;
                 })
+                .catch(error => console.log(error))
         })
         .catch(error => console.log(error))
 });
+
 
 getPosition = (options) => {
     if (document.body.dataset.env === 'test') {
@@ -46,7 +63,6 @@ getPosition = (options) => {
 redirectWithLocation = () => {
     let url = new URL(window.location.href);
     if (document.body.dataset.geocoded !== 'true') {
-        document.body.dataset.geocoded = true;
         window.location.replace(url);
     }
 };
@@ -58,3 +74,16 @@ setCookie = (name, value, days = 7, path = '/') => {
         resolve();
     })
 };
+
+getCookie = (name) => {
+    return new Promise(resolve => {
+        const value = document.cookie.split('; ').reduce((r, v) => {
+            const parts = v.split('=');
+            return parts[0] === name ? decodeURIComponent(parts[1]) : r
+        }, '');
+        resolve(value);
+    })
+};
+
+
+

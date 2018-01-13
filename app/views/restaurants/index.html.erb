@@ -1,6 +1,37 @@
 <h1>Restaurants#index</h1>
+<div id="map" style="width: 100%; height: 400px"></div>
 <% @restaurants.each do |restaurant| %>
   <h2>
     <%= restaurant.name %>
   </h2>
 <% end %>
+<script type="text/javascript" charset="utf-8">
+    initiateMap = () => {
+        getCookie('geocoderLocation').then(value => {
+            const coordinates = JSON.parse(value);
+            map = GMaps({
+                div: '#map',
+                zoom: 12,
+                lat: coordinates.latitude,
+                lng: coordinates.longitude
+            });
+
+            addCenterMarker(map);
+        })
+
+    }
+
+    addCenterMarker = (map) => {
+        //const restaurants = []
+        map.addMarker({
+            lat: map.getCenter().lat(),
+            lng: map.getCenter().lng(),
+            title: 'Center',
+            click: function (e) {
+                alert('You clicked in this marker');
+            }
+        });
+
+    }
+
+</script>
